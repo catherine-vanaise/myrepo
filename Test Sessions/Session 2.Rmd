@@ -1,0 +1,99 @@
+---
+title: "Session 2"
+author: "Catherine Vanaise"
+date: "1/18/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Structure of data
+```{r}
+library(ISLR)
+library(dplyr)
+mydata <- data.frame(College)
+str(mydata)
+
+```
+
+# Summary of data
+
+```{r}
+summary(mydata)
+```
+
+# Relationships between variables
+
+```{r}
+pairs(mydata[,1:10])
+```
+
+# Boxplots 
+
+## Boxplot of Private and Outstate Variables
+
+```{r}
+boxplot(Outstate~Private,
+        data=mydata,
+        xlab="Private",
+        ylab="Outstate")
+```
+
+# Creating a new variable Elite
+
+```{r}
+mydata <- mydata %>% mutate(Elite = case_when(mydata$Top10perc > 50 ~ "Yes",
+                                   TRUE ~ "No"))
+summary(mydata)
+```
+
+## Boxplot of Elite and Outstate Variables
+
+```{r}
+boxplot(Outstate~Elite,
+        data=mydata,
+        xlab="Elite",
+        ylab="Outstate")
+```
+
+
+```{r}
+par(mfrow=c(2,2))
+```
+
+# Histograms 
+
+## Histogram of Apps
+
+```{r}
+hist(mydata$Apps,
+     breaks=50,
+     xlim=c(0,25000),
+     main="Apps")
+```
+
+## Histogram of Enroll
+
+```{r}
+hist(mydata$Enroll,
+     breaks=25,
+     main="Enroll")
+```
+
+## Histogram of Expend
+
+```{r}
+hist(mydata$Expend,
+     breaks=25,
+     main="Expend")
+```
+
+## Histogram of Outstate
+
+```{r}
+hist(mydata$Outstate,
+     main="Outstate")
+```
+
